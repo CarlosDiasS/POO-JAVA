@@ -1,10 +1,11 @@
 package br.com.oficina.api.controller;
 
+import java.util.Arrays;
 import java.util.EnumMap;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Set;
 
 import br.com.oficina.utils.EnumOficinas;
 import br.com.oficina.utils.EnumServicos;
@@ -17,7 +18,7 @@ public class ListaDeOficinas {
 
 	// chave enumOfc ,
 
-	private final Map<EnumOficinas, List<EnumServicos>> servicosPerOfc;
+	private Map<EnumOficinas, Set<EnumServicos>> servicosPerOfc;
 	// private final ServicoAutomotivoApi api;
 
 	public ListaDeOficinas() {
@@ -28,11 +29,11 @@ public class ListaDeOficinas {
 		// indexando um array dos servicos presentes em cada enumServicos
 		// de acordo com cada EnumOficinas
 
-		servicosPerOfc.put(EnumOficinas.AutoCenter, Arrays.asList(EnumServicos.values()));
-		servicosPerOfc.put(EnumOficinas.Borracharia, Arrays.asList(EnumServicos.values()));
-		servicosPerOfc.put(EnumOficinas.LojaDeBateria, Arrays.asList(EnumServicos.values()));
-		servicosPerOfc.put(EnumOficinas.LojaDeOleo, Arrays.asList(EnumServicos.values()));
-
+		 // Populando os serviços de acordo com cada oficina usando EnumSet para evitar duplicatas
+        servicosPerOfc.put(EnumOficinas.AutoCenter, EnumSet.allOf(EnumServicos.class));
+        servicosPerOfc.put(EnumOficinas.Borracharia, EnumSet.of(EnumServicos.TrocaDePneu));
+        servicosPerOfc.put(EnumOficinas.LojaDeBateria, EnumSet.of(EnumServicos.TrocaBateria));
+        servicosPerOfc.put(EnumOficinas.LojaDeOleo, EnumSet.of(EnumServicos.TrocaDeOleo));
 	}
 
 	// gpt ajudou a usar o map e indexar os valores
@@ -42,7 +43,7 @@ public class ListaDeOficinas {
 		for (EnumOficinas oficina : EnumOficinas.values()) {
 			System.out.println("Servicos disponvieis para: " + oficina + "\n");
 
-			List<EnumServicos> servicos = servicosPerOfc.get(oficina);
+			Set<EnumServicos> servicos = servicosPerOfc.get(oficina);
 			if (servicos != null) {
 				for (EnumServicos servico : servicos) {
 					System.out.println("-" + servico + "\n");

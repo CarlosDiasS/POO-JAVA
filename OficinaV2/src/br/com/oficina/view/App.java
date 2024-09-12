@@ -16,20 +16,9 @@ public class App {
 		listaOfc.ExibirServicosDisp();
 
 		// utilizando enum's como parametro, retaorna um servicoReparo
-		EnumOficinas oficina = EnumOficinas.Borracharia;
-		EnumServicos servico = EnumServicos.TrocaDePneu;
-		
-		
-		ServicoAutomotivoApi api = new ServicoAutomotivoApi();
-		
-		ServicoDTO servicoDTO = new ServicoDTO(oficina, servico);
 
-		String transacao = api.getServico(servicoDTO);
-		System.out.println(transacao);
+		ServicoAutomotivoApi api = new ServicoAutomotivoApi(EnumOficinas.Borracharia, EnumServicos.TrocaDePneu);
 
 	}
 
 }
-
-//comunicar com autocenter DTO
-
